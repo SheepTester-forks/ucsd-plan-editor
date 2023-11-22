@@ -1,0 +1,9 @@
+{
+  "importMap": "./import_map.json",
+  "tasks": {
+    "watch:plan-diffs": "deno bundle --watch reports/plan-diffs.tsx -- reports/output/plan-diffs.js",
+    "watch:plan-editor": "deno bundle --watch reports/plan-editor.tsx -- reports/output/plan-editor.js",
+    "watch:prereq-tree": "deno bundle --watch reports/prereq-tree.tsx -- reports/output/prereq-tree.js",
+    "watch:seats": "deno bundle --watch reports/seats.tsx -- reports/output/seats.js"
+  }
+}

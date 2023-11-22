@@ -1,0 +1,8 @@
+{
+  "imports": {
+    "preact": "https://esm.sh/preact@10.11.2",
+    "preact/": "https://esm.sh/preact@10.11.2/",
+    "d3": "https://cdn.skypack.dev/d3@7.6.1?dts",
+    "types:d3-selection": "https://cdn.skypack.dev/-/d3-selection@v3.0.0-sAmQ3giCT8irML5wz1T1/dist=es2019,mode=types/index.d.ts"
+  }
+}

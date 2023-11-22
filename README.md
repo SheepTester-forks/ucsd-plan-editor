@@ -34,37 +34,12 @@ Files:
 - reports/util/local-storage.ts: a getter for the `localStorage` object, since accessing it directly could throw errors in incognito mode in some browsers.
 - reports/plan-editor/README.md: details the component hierarchy listed above.
 
-Plan index:
-
-- dump_plans.py (output: reports/output/plan-editor-index.html, reports/output/plans.json) outputs all academic plans to a file. This was to allow using an existing plan as a template to edit it.
-
 ## Development (plan diff, prereq tree, and plan editor)
 
-Run this first.
-
 ```sh
-$ make reports/output/academic-plan-diffs.js
-$ make reports/output/prereqs.js
-```
+# Build
+$ yarn build
 
-Watch for changes. Open the template file in the browser:
-
-- reports/plan-diffs-template.html
-- reports/prereq-tree-template.html
-- reports/plan-editor-template.html
-
-```sh
-$ deno task watch:plan-diff
-$ deno task watch:prereq-tree
-$ deno task watch:plan-editor
-```
-
-Build a single file. Upload the output file to the CMS.
-
-- reports/output/academic-plan-diffs.html
-- reports/output/prereq-tree.html
-- reports/output/plan-editor.html
-
-```
-$ make
+# Start development server
+$ yarn dev
 ```

@@ -1,0 +1,30 @@
+{
+  "name": "ucsd-plan-editor",
+  "version": "1.0.0",
+  "description": "A new plan editor for UCSD.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build:app": "esbuild --bundle --loader:.svg=file src/index.tsx --outdir=dist --supported:nesting=false --minify --sourcemap",
+    "clean": "rm -f dist/*.js dist/*.css dist/*.map",
+    "dev": "esbuild --bundle --loader:.svg=file src/index.tsx --outdir=dist --servedir=dist --sourcemap"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SheepTester-forks/ucsd-plan-editor.git"
+  },
+  "keywords": [],
+  "author": "SheepTester",
+  "license": "Mit",
+  "bugs": {
+    "url": "https://github.com/SheepTester-forks/ucsd-plan-editor/issues"
+  },
+  "homepage": "https://github.com/SheepTester-forks/ucsd-plan-editor#readme",
+  "devDependencies": {
+    "@types/react-dom": "^18.2.17",
+    "esbuild": "^0.19.7"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

@@ -48,10 +48,10 @@ export function Year ({
             pattern='[0-9]*'
             aria-label='Starting year'
             value={planStartYear}
-            onInput={e => {
+            onChange={e => {
               onYear(e.currentTarget.value)
             }}
-            onChange={e => {
+            onBlur={e => {
               onYear(
                 Number.isFinite(+e.currentTarget.value)
                   ? String(Math.trunc(+e.currentTarget.value))

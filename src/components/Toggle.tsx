@@ -14,7 +14,7 @@ export function Toggle ({ checked, onCheck }: ToggleProps) {
         type='checkbox'
         className='toggle-checkbox'
         checked={checked}
-        onInput={e => onCheck?.(e.currentTarget.checked)}
+        onChange={e => onCheck?.(e.currentTarget.checked)}
       />
       <span className='toggle-shape' />
     </>

@@ -1,5 +1,5 @@
-import { CsvRows } from '../util/csv.ts'
-import { Prereqs } from '../util/Prereqs.ts'
+import { CsvRows } from './util/csv.ts'
+import { Prereqs } from './util/Prereqs.ts'
 import { AcademicPlan } from './types.ts'
 
 const UNIVERSITY_NAME = 'University of California, San Diego'

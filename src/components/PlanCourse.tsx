@@ -84,8 +84,8 @@ export function PlanCourse ({
         type='text'
         list='courses'
         value={course.title}
-        onInput={e => onCourse?.({ ...course, title: e.currentTarget.value })}
-        onChange={e =>
+        onChange={e => onCourse?.({ ...course, title: e.currentTarget.value })}
+        onBlur={e =>
           onCourse?.({
             ...course,
             title: cleanCourseCode(e.currentTarget.value)
@@ -174,10 +174,10 @@ export function PlanCourse ({
             inputMode='numeric'
             pattern='[0-9]*'
             value={course.units}
-            onInput={e =>
+            onChange={e =>
               onCourse?.({ ...course, units: e.currentTarget.value })
             }
-            onChange={e =>
+            onBlur={e =>
               onCourse?.({
                 ...course,
                 units: Number.isFinite(+e.currentTarget.value)

@@ -166,7 +166,7 @@ export function PrereqSidebar ({
           aria-label='Plan name'
           placeholder='To save the plan, name it here.'
           value={planName}
-          onInput={e => {
+          onChange={e => {
             const newPlanName = e.currentTarget.value
             setPlanName(oldPlanName => {
               if (newPlanName !== '' && !otherPlans.includes(newPlanName)) {
@@ -254,7 +254,7 @@ export function PrereqSidebar ({
         <input
           type='checkbox'
           checked={updateUrl}
-          onInput={e => setUpdateUrl(e.currentTarget.checked)}
+          onChange={e => setUpdateUrl(e.currentTarget.checked)}
         />{' '}
         Save plan in URL
       </label>
@@ -314,8 +314,8 @@ export function PrereqSidebar ({
                 list='courses'
                 placeholder={isNew ? 'Type a course code here' : 'Course code'}
                 value={name}
-                onInput={e => handleChange(e.currentTarget.value)}
-                onChange={e =>
+                onChange={e => handleChange(e.currentTarget.value)}
+                onBlur={e =>
                   handleChange(cleanCourseCode(e.currentTarget.value))
                 }
                 onKeyDown={e => {

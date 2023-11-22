@@ -29,7 +29,7 @@ export function CourseOptions ({
           <input
             type='checkbox'
             checked={course.requirement.major}
-            onInput={e =>
+            onChange={e =>
               onCourse({
                 ...course,
                 requirement: {
@@ -45,7 +45,7 @@ export function CourseOptions ({
           <input
             type='checkbox'
             checked={course.requirement.college}
-            onInput={e =>
+            onChange={e =>
               onCourse({
                 ...course,
                 requirement: {
@@ -61,7 +61,7 @@ export function CourseOptions ({
           <input
             type='checkbox'
             checked={course.forCredit}
-            onInput={e =>
+            onChange={e =>
               onCourse({
                 ...course,
                 forCredit: e.currentTarget.checked

@@ -29,7 +29,7 @@ export function MetadataField ({
         <select
           className='metadata-value'
           value={plan[property]}
-          onInput={e => onPlan({ [property]: e.currentTarget.value })}
+          onChange={e => onPlan({ [property]: e.currentTarget.value })}
         >
           {Object.entries(values).map(([code, name]) => (
             <option value={code} key={code}>
@@ -43,7 +43,7 @@ export function MetadataField ({
           className='metadata-value'
           placeholder={placeholder}
           value={plan[property]}
-          onInput={e => onPlan({ [property]: e.currentTarget.value })}
+          onChange={e => onPlan({ [property]: e.currentTarget.value })}
         />
       )}
     </label>

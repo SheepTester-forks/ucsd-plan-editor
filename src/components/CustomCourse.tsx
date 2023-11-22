@@ -26,8 +26,8 @@ export function CustomCourse ({
         type='text'
         placeholder={isNew ? 'Type a course code here' : 'Course code'}
         value={name}
-        onInput={e => onName(e.currentTarget.value)}
-        onChange={e => onName(cleanCourseCode(e.currentTarget.value))}
+        onChange={e => onName(e.currentTarget.value)}
+        onBlur={e => onName(cleanCourseCode(e.currentTarget.value))}
         onKeyDown={e => {
           if (e.key === 'Enter') {
             e.currentTarget.parentElement?.nextElementSibling
@@ -80,8 +80,8 @@ export function CustomCourse ({
                             : 'Alternate'
                         }
                         value={alt}
-                        onInput={e => handleChange(e.currentTarget.value)}
-                        onChange={e =>
+                        onChange={e => handleChange(e.currentTarget.value)}
+                        onBlur={e =>
                           handleChange(cleanCourseCode(e.currentTarget.value))
                         }
                         onKeyDown={e => {

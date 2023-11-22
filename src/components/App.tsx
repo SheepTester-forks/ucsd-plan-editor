@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { CourseCode, Prereqs } from '../util/Prereqs.ts'
 import { AcademicPlan } from '../types.ts'
+import { CourseCode, Prereqs } from '../util/Prereqs.ts'
 import { Editor } from './Editor.tsx'
 import { Metadata } from './Metadata.tsx'
 import { PrereqSidebar } from './PrereqSidebar.tsx'
+import { GraphView } from './GraphView.tsx'
 
 export type AppProps = {
   prereqs: Prereqs
@@ -55,6 +56,7 @@ export function App ({ prereqs: initPrereqs, initPlan, mode }: AppProps) {
           plan={plan}
           onPlan={setPlan}
         />
+        <GraphView prereqs={prereqs} plan={plan} />
       </main>
       <PrereqSidebar
         prereqs={prereqs}

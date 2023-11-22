@@ -3,12 +3,13 @@ import { DragContext } from '../drag-drop.ts'
 
 export type RemoveZoneProps = {
   onDropLocation?: (inside: boolean) => void
+  active: boolean
 }
 /**
  * A red rectangle that appears as a drop target when dragging a course to
  * remove the course.
  */
-export function RemoveZone ({ onDropLocation }: RemoveZoneProps) {
+export function RemoveZone ({ onDropLocation, active }: RemoveZoneProps) {
   const dragState = useContext(DragContext)
   const element = useRef<HTMLDivElement>(null)
   const inside = useMemo(() => {
@@ -34,10 +35,12 @@ export function RemoveZone ({ onDropLocation }: RemoveZoneProps) {
 
   return (
     <div
-      className={`remove-zone ${inside ? 'remove-hover' : ''}`}
+      className={`remove-zone ${inside ? 'remove-hover' : ''} ${
+        active ? '' : 'remove-zone-hidden'
+      }`}
       ref={element}
     >
-      <span>Remove course</span>
+      <span>Drag here to remove course</span>
     </div>
   )
 }

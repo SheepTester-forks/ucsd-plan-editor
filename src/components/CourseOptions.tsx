@@ -8,6 +8,7 @@ export type CourseOptionsProps = {
   duplicateCourse: boolean
   duplicateCredit: boolean
   missingPrereqs: string[][]
+  visible: boolean
 }
 /**
  * The pop-up that appears when you click on the settings button for a course in
@@ -20,10 +21,13 @@ export function CourseOptions ({
   valid,
   duplicateCourse,
   duplicateCredit,
-  missingPrereqs
+  missingPrereqs,
+  visible
 }: CourseOptionsProps) {
   return (
-    <div className='options-wrapper'>
+    <div
+      className={`options-wrapper ${visible ? '' : 'options-wrapper-hidden'}`}
+    >
       <div className='options-body'>
         <label className='toggle-wrapper'>
           <input
@@ -68,7 +72,7 @@ export function CourseOptions ({
               })
             }
           />
-          Credit received from this course (uncheck if failed or withdrawn)
+          Received credit from this course (uncheck if failed or withdrawn)
         </label>
       </div>
       {valid && (
@@ -84,7 +88,7 @@ export function CourseOptions ({
       {duplicateCredit && (
         <div className='course-note warning'>
           Credit for this course has already been received. If you are retaking
-          this course, uncheck "Credit received" for the earlier course.
+          this course, uncheck "Received credit" for the earlier course.
         </div>
       )}
       {missingPrereqs.length > 0 && (

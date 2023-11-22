@@ -99,6 +99,7 @@ export function Editor ({
             }
             onDrag={(e, termIndex, courseIndex) => {
               if (!dragStateRef.current) {
+                e.preventDefault()
                 element.current?.setPointerCapture(e.pointerId)
                 const rect =
                   e.currentTarget.parentElement!.getBoundingClientRect()
@@ -192,33 +193,32 @@ export function Editor ({
         >
           Add year <strong>+</strong>
         </button>
-        {dragStateVal && (
-          <RemoveZone
-            onDropLocation={inside => {
-              const dragState = dragStateRef.current
-              if (!dragState) {
+        <RemoveZone
+          onDropLocation={inside => {
+            const dragState = dragStateRef.current
+            if (!dragState) {
+              return
+            }
+            if (inside) {
+              if (dragState.dropLocation === 'remove') {
                 return
               }
-              if (inside) {
-                if (dragState.dropLocation === 'remove') {
-                  return
-                }
-                dragStateRef.current = {
-                  ...dragState,
-                  dropLocation: 'remove'
-                }
-              } else if (dragState.dropLocation === 'remove') {
-                dragStateRef.current = {
-                  ...dragState,
-                  dropLocation: null
-                }
-              } else {
-                return
+              dragStateRef.current = {
+                ...dragState,
+                dropLocation: 'remove'
               }
-              setDragStateVal(dragStateRef.current)
-            }}
-          />
-        )}
+            } else if (dragState.dropLocation === 'remove') {
+              dragStateRef.current = {
+                ...dragState,
+                dropLocation: null
+              }
+            } else {
+              return
+            }
+            setDragStateVal(dragStateRef.current)
+          }}
+          active={dragStateVal !== null}
+        />
       </DragContext.Provider>
       {dragStateVal && (
         <PlanCourse

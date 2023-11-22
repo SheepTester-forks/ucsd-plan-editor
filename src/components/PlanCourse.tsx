@@ -151,13 +151,13 @@ export function PlanCourse ({
                 <span className='issue-icon'>{hasError ? '❌' : '⚠️'}</span>
               )}
             </button>
-            {showOptions && (
-              <div
-                className={`options-wrapper-arrow ${validCode ? 'info' : ''}`}
-              />
-            )}
+            <div
+              className={`options-wrapper-arrow ${validCode ? 'info' : ''} ${
+                showOptions ? '' : 'options-wrapper-hidden'
+              }`}
+            />
           </div>
-          {showOptions && onCourse && onRemove && (
+          {onCourse && onRemove && (
             <CourseOptions
               course={course}
               onCourse={onCourse}
@@ -166,6 +166,7 @@ export function PlanCourse ({
               duplicateCourse={duplicateCourse}
               duplicateCredit={duplicateCredit}
               missingPrereqs={missingPrereqs}
+              visible={showOptions}
             />
           )}
           <input

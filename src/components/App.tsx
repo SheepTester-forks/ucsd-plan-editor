@@ -1,10 +1,5 @@
-/** @jsxImportSource preact */
-/// <reference no-default-lib="true"/>
-/// <reference lib="dom" />
-/// <reference lib="deno.ns" />
-
-import { useState } from 'preact/hooks'
-import { CourseCode, Prereqs } from '../../util/Prereqs.ts'
+import { useState } from 'react'
+import { CourseCode, Prereqs } from '../util/Prereqs.ts'
 import { AcademicPlan } from '../types.ts'
 import { Editor } from './Editor.tsx'
 import { Metadata } from './Metadata.tsx'
@@ -32,15 +27,15 @@ export function App ({ prereqs: initPrereqs, initPlan, mode }: AppProps) {
 
   return (
     <>
-      <main class='main'>
-        <div class='plan-info'>
+      <main className='main'>
+        <div className='plan-info'>
           <Metadata
             plan={plan}
             onPlan={change => setPlan(plan => ({ ...plan, ...change }))}
           />
-          <span class='total-units plan-units'>
+          <span className='total-units plan-units'>
             Total units:{' '}
-            <span class='units'>
+            <span className='units'>
               {plan.years.reduce(
                 (cum, curr) =>
                   cum +

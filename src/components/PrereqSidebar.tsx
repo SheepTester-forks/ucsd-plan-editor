@@ -1,16 +1,11 @@
-/** @jsxImportSource preact */
-/// <reference no-default-lib="true"/>
-/// <reference lib="dom" />
-/// <reference lib="deno.ns" />
-
-import { useEffect, useState } from 'preact/hooks'
-import { toCsv } from '../../util/csv.ts'
-import { download } from '../../util/download.ts'
-import { storage } from '../../util/local-storage.ts'
-import { cleanCourseCode, CourseCode, Prereqs } from '../../util/Prereqs.ts'
-import { toUcsdPlan, toCurrAnalyticsPlan } from '../export-plan.ts'
+import { useEffect, useState } from 'react'
+import { toCurrAnalyticsPlan, toUcsdPlan } from '../export-plan.ts'
 import { toSearchParams } from '../save-to-url.ts'
 import { AcademicPlan } from '../types.ts'
+import { CourseCode, Prereqs, cleanCourseCode } from '../util/Prereqs.ts'
+import { toCsv } from '../util/csv.ts'
+import { download } from '../util/download.ts'
+import { storage } from '../util/local-storage.ts'
 import { CustomCourse } from './CustomCourse.tsx'
 import { PrereqCheck } from './PrereqCheck.tsx'
 
@@ -120,15 +115,15 @@ export function PrereqSidebar ({
   const planFileName = `Degree Plan-${plan.collegeName}-${plan.majorCode}.csv`
 
   return (
-    <aside class='sidebar'>
-      <h2 class='sidebar-heading'>Saved plans</h2>
+    <aside className='sidebar'>
+      <h2 className='sidebar-heading'>Saved plans</h2>
       {(otherPlans.length > 0 || saving) && (
-        <div class='saved-plans'>
+        <div className='saved-plans'>
           {(saving ? [...otherPlans, planName].sort() : otherPlans).map(
             name => (
               <label
                 key={name}
-                class={`saved-plan ${
+                className={`saved-plan ${
                   saving && name === planName ? 'plan-current' : ''
                 }`}
               >
@@ -156,7 +151,7 @@ export function PrereqSidebar ({
                       )
                     }
                   }}
-                  class='visually-hidden'
+                  className='visually-hidden'
                 />{' '}
                 {name}
               </label>
@@ -164,10 +159,10 @@ export function PrereqSidebar ({
           )}
         </div>
       )}
-      <div class='plan-name-wrapper'>
+      <div className='plan-name-wrapper'>
         <input
           type='text'
-          class='metadata-value lengthy'
+          className='metadata-value lengthy'
           aria-label='Plan name'
           placeholder='To save the plan, name it here.'
           value={planName}
@@ -189,11 +184,13 @@ export function PrereqSidebar ({
         />
       </div>
       {planName !== '' && !saving && (
-        <p class='duplicate-plan-name'>A plan of this name already exists.</p>
+        <p className='duplicate-plan-name'>
+          A plan of this name already exists.
+        </p>
       )}
-      <div class='plan-btns'>
+      <div className='plan-btns'>
         <button
-          class='download-btn'
+          className='download-btn'
           disabled={!saving}
           onClick={() => {
             setPlanName(planName => {
@@ -215,7 +212,7 @@ export function PrereqSidebar ({
           Duplicate
         </button>
         <button
-          class='download-btn delete-btn'
+          className='download-btn delete-btn'
           disabled={!saving}
           onClick={() => {
             if (
@@ -236,7 +233,7 @@ export function PrereqSidebar ({
           Delete
         </button>
         <button
-          class='download-btn delete-btn'
+          className='download-btn delete-btn'
           disabled={JSON.stringify(plan) === JSON.stringify(originalPlan)}
           onClick={() => {
             if (
@@ -261,8 +258,8 @@ export function PrereqSidebar ({
         />{' '}
         Save plan in URL
       </label>
-      <h2 class='sidebar-heading'>Prerequisites</h2>
-      <ul class='course-codes'>
+      <h2 className='sidebar-heading'>Prerequisites</h2>
+      <ul className='course-codes'>
         {terms.flatMap((term, i) =>
           term.map((course, j) => {
             if (prereqs[course] && !assumedSatisfied.includes(course)) {
@@ -282,18 +279,18 @@ export function PrereqSidebar ({
           })
         )}
       </ul>
-      <h2 class='sidebar-heading'>Transferred credit</h2>
+      <h2 className='sidebar-heading'>Transferred credit</h2>
       {mode === 'advisor' ? (
-        <p class='description'>
+        <p className='description'>
           For managing courses that most students are assumed to have credit
           for.
         </p>
       ) : (
-        <p class='description'>
+        <p className='description'>
           Add courses that you already have equivalent credit for here.
         </p>
       )}
-      <ul class='assumed-satisfied-list'>
+      <ul className='assumed-satisfied-list'>
         {[...assumedSatisfied, ''].map((name, i) => {
           const isNew = i === assumedSatisfied.length
           const handleChange = (value: string) =>
@@ -306,13 +303,13 @@ export function PrereqSidebar ({
             )
           return (
             <li
-              class={`assumed-satisfied ${
+              className={`assumed-satisfied ${
                 isNew ? 'assumed-satisfied-new' : ''
               }`}
               key={i}
             >
               <input
-                class='assumed-satisfied-input'
+                className='assumed-satisfied-input'
                 type='text'
                 list='courses'
                 placeholder={isNew ? 'Type a course code here' : 'Course code'}
@@ -343,28 +340,28 @@ export function PrereqSidebar ({
           )
         })}
       </ul>
-      <h2 class='sidebar-heading'>
+      <h2 className='sidebar-heading'>
         Create a course
         <button
-          class='create-course'
+          className='create-course'
           onClick={() => setCustom([...custom, { name: '', reqs: [] }])}
         >
           +
         </button>
       </h2>
       {mode === 'advisor' ? (
-        <p class='description'>
+        <p className='description'>
           For designing a new major. To change a course's prerequisites, create
           a course with an existing course code.
         </p>
       ) : (
-        <p class='description'>
+        <p className='description'>
           For adding missing courses. To fix outdated or incorrect
           prerequisites, create a course with an existing course code to
           override its prerequisites.
         </p>
       )}
-      <ul class='custom-courses'>
+      <ul className='custom-courses'>
         {[...custom, { name: '', reqs: [] }].map(({ name, reqs }, i) => {
           const isNew = i === custom.length
           return (
@@ -397,17 +394,17 @@ export function PrereqSidebar ({
         })}
       </ul>
       {mode === 'advisor' ? (
-        <div class='download-wrapper'>
-          <p class='download-label'>Export the plan as a CSV file for</p>
-          <div class='download-btns'>
+        <div className='download-wrapper'>
+          <p className='download-label'>Export the plan as a CSV file for</p>
+          <div className='download-btns'>
             <button
-              class='download-btn'
+              className='download-btn'
               onClick={() => download(toCsv(toUcsdPlan(plan)), planFileName)}
             >
               plans.ucsd.edu
             </button>
             <button
-              class='download-btn'
+              className='download-btn'
               onClick={() =>
                 download(
                   toCsv(toCurrAnalyticsPlan(plan, prereqs)),
@@ -420,9 +417,9 @@ export function PrereqSidebar ({
           </div>
         </div>
       ) : (
-        <div class='download-wrapper'>
-          <div class='download-btns'>
-            <button class='download-btn open-btn' disabled>
+        <div className='download-wrapper'>
+          <div className='download-btns'>
+            <button className='download-btn open-btn' disabled>
               Open in Curricular Analytics
             </button>
           </div>

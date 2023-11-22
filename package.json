@@ -4,7 +4,7 @@
   "description": "A new plan editor for UCSD.",
   "main": "dist/index.js",
   "scripts": {
-    "build:app": "esbuild --bundle --loader:.svg=file src/index.tsx --outdir=dist --supported:nesting=false --minify --sourcemap",
+    "build": "esbuild --bundle --loader:.svg=file src/index.tsx --outdir=dist --supported:nesting=false --minify --sourcemap",
     "clean": "rm -f dist/*.js dist/*.css dist/*.map",
     "dev": "esbuild --bundle --loader:.svg=file src/index.tsx --outdir=dist --servedir=dist --sourcemap"
   },

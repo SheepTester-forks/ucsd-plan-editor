@@ -1,17 +1,10 @@
-/** @jsxImportSource preact */
-/// <reference no-default-lib="true"/>
-/// <reference lib="dom" />
-/// <reference lib="deno.ns" />
-
-import { Fragment } from 'preact'
-import { useContext, useMemo, useRef } from 'preact/hooks'
-import type { JSX } from 'preact/jsx-runtime'
-import { CourseCode, Prereqs } from '../../util/Prereqs.ts'
+import React, { Fragment, useContext, useMemo, useRef } from 'react'
 import { DragContext } from '../drag-drop.ts'
 import { Course, TermPlan } from '../types.ts'
+import { CourseCode, Prereqs } from '../util/Prereqs.ts'
 import { PlanCourse } from './PlanCourse.tsx'
 
-const Placeholder = () => <li class='placeholder-course'></li>
+const Placeholder = () => <li className='placeholder-course'></li>
 
 const COURSE_HEIGHT = 30
 const emptyCourse: Omit<Course, 'id'> = {
@@ -25,10 +18,7 @@ export type TermProps = {
   name: string
   plan: TermPlan
   onPlan: (plan: TermPlan) => void
-  onDrag?: (
-    event: JSX.TargetedPointerEvent<HTMLElement>,
-    course: number
-  ) => void
+  onDrag?: (event: React.PointerEvent<HTMLElement>, course: number) => void
   onDropLocation?: (index: number | null) => void
   pastCourses: CourseCode[]
 }
@@ -74,17 +64,17 @@ export function Term ({
   const termUnits = plan.reduce((cum, curr) => cum + +curr.units, 0)
 
   return (
-    <section class='term-editor' ref={element}>
+    <section className='term-editor' ref={element}>
       <h3
-        class={`heading term-heading info ${
+        className={`heading term-heading info ${
           termUnits < 12 ? 'error' : termUnits > 18 ? 'warning' : ''
         }`}
       >
         {name}{' '}
-        <span class='total-units term-units'>
+        <span className='total-units term-units'>
           Units:{' '}
           <span
-            class={
+            className={
               termUnits < 12 || termUnits > 18 ? 'units units-bad' : 'units'
             }
           >
@@ -92,14 +82,14 @@ export function Term ({
           </span>
         </span>
         <button
-          class='term-icon-btn add-course-btn'
+          className='term-icon-btn add-course-btn'
           title='Add course'
           onClick={() => onPlan([...plan, { ...emptyCourse, id: newCourseId }])}
         >
           +
         </button>
       </h3>
-      <ul class='courses'>
+      <ul className='courses'>
         {[...plan, { ...emptyCourse, id: newCourseId }].map((course, i) => (
           <Fragment key={course.id}>
             {dragState?.dropLocation !== 'remove' && i === placeholderIndex && (

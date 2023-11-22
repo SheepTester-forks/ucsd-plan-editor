@@ -1,11 +1,6 @@
-/** @jsxImportSource preact */
-/// <reference no-default-lib="true"/>
-/// <reference lib="dom" />
-/// <reference lib="deno.ns" />
-
-import type { JSX } from 'preact/jsx-runtime'
-import { CourseCode, Prereqs } from '../../util/Prereqs.ts'
+import React from 'react'
 import { YearPlan } from '../types.ts'
+import { CourseCode, Prereqs } from '../util/Prereqs.ts'
 import { Term } from './Term.tsx'
 
 const termNames = ['Fall', 'Winter', 'Spring']
@@ -17,7 +12,7 @@ export type YearProps = {
   onPlan: (plan: YearPlan) => void
   onYear?: ((year: string) => void) | null
   onDrag?: (
-    event: JSX.TargetedPointerEvent<HTMLElement>,
+    event: React.PointerEvent<HTMLElement>,
     term: number,
     course: number
   ) => void
@@ -42,12 +37,12 @@ export function Year ({
 }: YearProps) {
   const empty = plan.every(term => term.length === 0)
   return (
-    <section class='year-editor'>
-      <h2 class='heading year-heading'>
+    <section className='year-editor'>
+      <h2 className='heading year-heading'>
         <strong>Year {index + 1}</strong>:{' '}
         {onYear ? (
           <input
-            class='start-year'
+            className='start-year'
             type='text'
             inputMode='numeric'
             pattern='[0-9]*'
@@ -69,13 +64,13 @@ export function Year ({
         )}
         –{+planStartYear + index + 1}
         {empty && (
-          <button class='remove-year' onClick={onRemove}>
+          <button className='remove-year' onClick={onRemove}>
             Remove
           </button>
         )}
-        <span class='total-units'>
+        <span className='total-units'>
           Annual units:{' '}
-          <span class='units'>
+          <span className='units'>
             {plan.reduce(
               (cum, curr) =>
                 cum + curr.reduce((cum, curr) => cum + +curr.units, 0),
@@ -84,7 +79,7 @@ export function Year ({
           </span>
         </span>
       </h2>
-      <div class='terms'>
+      <div className='terms'>
         {plan.map((term, i) => (
           <Term
             prereqs={prereqs}

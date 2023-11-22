@@ -1,8 +1,3 @@
-/** @jsxImportSource preact */
-/// <reference no-default-lib="true"/>
-/// <reference lib="dom" />
-/// <reference lib="deno.ns" />
-
 import { Metadata } from '../types.ts'
 
 export type MetadataFieldProps = {
@@ -12,7 +7,7 @@ export type MetadataFieldProps = {
   onPlan: (change: Partial<Metadata>) => void
   values?: Record<string, string>
   placeholder?: string
-  class?: string
+  className?: string
 }
 /**
  * A convenience and helper component for a text field or dropdown (`<select>`)
@@ -25,14 +20,14 @@ export function MetadataField ({
   onPlan,
   values,
   placeholder,
-  class: className = ''
+  className = ''
 }: MetadataFieldProps) {
   return (
-    <label class={`metadata-field ${className}`}>
-      <p class='metadata-label'>{label}</p>
+    <label className={`metadata-field ${className}`}>
+      <p className='metadata-label'>{label}</p>
       {values ? (
         <select
-          class='metadata-value'
+          className='metadata-value'
           value={plan[property]}
           onInput={e => onPlan({ [property]: e.currentTarget.value })}
         >
@@ -45,7 +40,7 @@ export function MetadataField ({
       ) : (
         <input
           type='text'
-          class='metadata-value'
+          className='metadata-value'
           placeholder={placeholder}
           value={plan[property]}
           onInput={e => onPlan({ [property]: e.currentTarget.value })}

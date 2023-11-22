@@ -1,21 +1,15 @@
-/** @jsxImportSource preact */
-/// <reference no-default-lib="true"/>
-/// <reference lib="dom" />
-/// <reference lib="deno.ns" />
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import prereqs from '../../ExploratoryCurricularAnalytics/reports/output/prereqs.json'
+import { App } from './components/App.tsx'
+import { fromSearchParams } from './save-to-url.ts'
 
-import { render } from 'preact'
-import { App } from './plan-editor/components/App.tsx'
-import { fromSearchParams } from './plan-editor/save-to-url.ts'
-
-render(
-  <App
-    prereqs={
-      JSON.parse(document.getElementById('prereqs')?.textContent ?? 'null') ||
-      // deno-lint-ignore no-explicit-any
-      (window as any)['PREREQS']
-    }
-    initPlan={fromSearchParams(new URL(window.location.href).searchParams)}
-    mode='advisor'
-  />,
-  document.getElementById('root')!
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App
+      prereqs={prereqs}
+      initPlan={fromSearchParams(new URL(window.location.href).searchParams)}
+      mode='advisor'
+    />
+  </StrictMode>
 )

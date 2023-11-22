@@ -1,10 +1,4 @@
-/** @jsxImportSource preact */
-/// <reference no-default-lib="true"/>
-
-import { cleanCourseCode } from '../../util/Prereqs.ts'
-
-/// <reference lib="dom" />
-/// <reference lib="deno.ns" />
+import { cleanCourseCode } from '../util/Prereqs.ts'
 
 export type CustomCourseProps = {
   name: string
@@ -26,9 +20,9 @@ export function CustomCourse ({
   isNew
 }: CustomCourseProps) {
   return (
-    <li class='custom-course'>
+    <li className='custom-course'>
       <input
-        class='custom-course-input'
+        className='custom-course-input'
         type='text'
         placeholder={isNew ? 'Type a course code here' : 'Course code'}
         value={name}
@@ -51,10 +45,10 @@ export function CustomCourse ({
         }}
       />
       {!isNew && (
-        <ol class='custom-course-prereqs'>
+        <ol className='custom-course-prereqs'>
           {[...reqs, []].map((alts, i) => (
             <li key={i}>
-              <ul class='custom-prereq-alts'>
+              <ul className='custom-prereq-alts'>
                 {[...alts, ''].map((alt, j) => {
                   const newReq = i === reqs.length
                   const newAlt = j === alts.length
@@ -73,7 +67,7 @@ export function CustomCourse ({
                   return (
                     <li key={j}>
                       <input
-                        class='custom-prereq-input'
+                        className='custom-prereq-input'
                         type='text'
                         list='courses'
                         placeholder={

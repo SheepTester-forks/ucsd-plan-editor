@@ -1,11 +1,5 @@
-/** @jsxImportSource preact */
-/// <reference no-default-lib="true"/>
-/// <reference lib="dom" />
-/// <reference lib="deno.ns" />
-
-import { useEffect, useRef, useState } from 'preact/hooks'
-import type { JSX } from 'preact/jsx-runtime'
-import { cleanCourseCode, CourseCode, Prereqs } from '../../util/Prereqs.ts'
+import React, { useEffect, useRef, useState } from 'react'
+import { CourseCode, Prereqs, cleanCourseCode } from '../util/Prereqs.ts'
 import { Course } from '../types.ts'
 import { CourseOptions } from './CourseOptions.tsx'
 
@@ -20,7 +14,7 @@ export type PlanCourseProps = {
     x: number
     y: number
   }
-  onDrag?: (event: JSX.TargetedPointerEvent<HTMLElement>) => void
+  onDrag?: (event: React.PointerEvent<HTMLElement>) => void
   pastCourses?: CourseCode[]
   concurrentCourses?: CourseCode[]
 }
@@ -71,7 +65,7 @@ export function PlanCourse ({
 
   return (
     <li
-      class={`course-editor ${isNew ? 'add-course' : ''} ${
+      className={`course-editor ${isNew ? 'add-course' : ''} ${
         dragged ? 'dragged' : ''
       }`}
       style={
@@ -86,7 +80,7 @@ export function PlanCourse ({
       ref={ref}
     >
       <input
-        class='course-field course-title'
+        className='course-field course-title'
         type='text'
         list='courses'
         value={course.title}
@@ -117,9 +111,9 @@ export function PlanCourse ({
       />
       {!isNew && (
         <>
-          <div class='settings-btn-wrapper'>
+          <div className='settings-btn-wrapper'>
             <button
-              class={`settings-btn ${
+              className={`settings-btn ${
                 course.requirement.major
                   ? course.requirement.college
                     ? 'overlap'
@@ -149,14 +143,18 @@ export function PlanCourse ({
                 : course.requirement.college
                 ? 'C'
                 : '⚙'}
-              {validCode && <span class='valid-course-icon'>✓</span>}
-              {!course.forCredit && <span class='failed-course-icon'>F</span>}
+              {validCode && <span className='valid-course-icon'>✓</span>}
+              {!course.forCredit && (
+                <span className='failed-course-icon'>F</span>
+              )}
               {(hasError || hasWarning) && (
-                <span class='issue-icon'>{hasError ? '❌' : '⚠️'}</span>
+                <span className='issue-icon'>{hasError ? '❌' : '⚠️'}</span>
               )}
             </button>
             {showOptions && (
-              <div class={`options-wrapper-arrow ${validCode ? 'info' : ''}`} />
+              <div
+                className={`options-wrapper-arrow ${validCode ? 'info' : ''}`}
+              />
             )}
           </div>
           {showOptions && onCourse && onRemove && (
@@ -171,7 +169,7 @@ export function PlanCourse ({
             />
           )}
           <input
-            class='course-field course-units term-units'
+            className='course-field course-units term-units'
             type='text'
             inputMode='numeric'
             pattern='[0-9]*'
@@ -192,7 +190,7 @@ export function PlanCourse ({
             disabled={!onCourse}
           />
           <span
-            class='term-icon-btn drag-btn'
+            className='term-icon-btn drag-btn'
             title='Move course'
             onPointerDown={onDrag}
           >

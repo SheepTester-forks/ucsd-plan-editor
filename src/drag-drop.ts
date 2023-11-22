@@ -1,4 +1,4 @@
-import { createContext } from 'preact'
+import { createContext } from 'react'
 import { Course, AcademicPlan } from './types.ts'
 
 export type DropLocation = {

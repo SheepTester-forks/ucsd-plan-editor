@@ -1,13 +1,7 @@
-/** @jsxImportSource preact */
-/// <reference no-default-lib="true"/>
-/// <reference lib="dom" />
-/// <reference lib="deno.ns" />
-
-import { useRef, useState } from 'preact/hooks'
-import type { JSX } from 'preact/jsx-runtime'
-import { CourseCode, Prereqs } from '../../util/Prereqs.ts'
-import { DragState, DragContext } from '../drag-drop.ts'
+import React, { useRef, useState } from 'react'
+import { DragContext, DragState } from '../drag-drop.ts'
 import { AcademicPlan } from '../types.ts'
+import { CourseCode, Prereqs } from '../util/Prereqs.ts'
 import { PlanCourse } from './PlanCourse.tsx'
 import { RemoveZone } from './RemoveZone.tsx'
 import { Year } from './Year.tsx'
@@ -35,7 +29,7 @@ export function Editor ({
   // State needed to rerender
   const [dragStateVal, setDragStateVal] = useState<DragState | null>(null)
 
-  const onPointerEnd = (e: JSX.TargetedPointerEvent<HTMLElement>) => {
+  const onPointerEnd = (e: React.PointerEvent<HTMLElement>) => {
     const dragState = dragStateRef.current
     if (e.pointerId === dragState?.pointerId) {
       const dropLoc = dragState.dropLocation
@@ -68,7 +62,7 @@ export function Editor ({
 
   return (
     <div
-      class='plan-editor'
+      className='plan-editor'
       onPointerMove={e => {
         if (e.pointerId === dragStateRef.current?.pointerId) {
           dragStateRef.current = {
@@ -191,7 +185,7 @@ export function Editor ({
           />
         ))}
         <button
-          class='add-year'
+          className='add-year'
           onClick={() =>
             onPlan({ ...plan, years: [...plan.years, [[], [], []]] })
           }

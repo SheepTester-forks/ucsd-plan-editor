@@ -1,8 +1,3 @@
-/** @jsxImportSource preact */
-/// <reference no-default-lib="true"/>
-/// <reference lib="dom" />
-/// <reference lib="deno.ns" />
-
 import { Metadata } from '../types.ts'
 import { MetadataField } from './MetadataField.tsx'
 
@@ -27,7 +22,7 @@ export type MetadataProps = {
  */
 export function Metadata ({ plan, onPlan }: MetadataProps) {
   return (
-    <div class='metadata'>
+    <div className='metadata'>
       <MetadataField
         property='departmentCode'
         plan={plan}
@@ -49,7 +44,7 @@ export function Metadata ({ plan, onPlan }: MetadataProps) {
         plan={plan}
         onPlan={onPlan}
         placeholder='Computer Engineering'
-        class='lengthy'
+        className='lengthy'
       >
         Major Name
       </MetadataField>

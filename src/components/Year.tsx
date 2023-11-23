@@ -52,11 +52,12 @@ export function Year ({
               onYear(e.currentTarget.value)
             }}
             onBlur={e => {
-              onYear(
-                Number.isFinite(+e.currentTarget.value)
-                  ? String(Math.trunc(+e.currentTarget.value))
-                  : String(new Date().getFullYear())
-              )
+              const clean = Number.isFinite(+e.currentTarget.value)
+                ? String(Math.trunc(+e.currentTarget.value))
+                : String(new Date().getFullYear())
+              if (e.currentTarget.value !== clean) {
+                onYear(clean)
+              }
             }}
           />
         ) : (

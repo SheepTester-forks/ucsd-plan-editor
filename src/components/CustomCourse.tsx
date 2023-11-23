@@ -27,7 +27,12 @@ export function CustomCourse ({
         placeholder={isNew ? 'Type a course code here' : 'Course code'}
         value={name}
         onChange={e => onName(e.currentTarget.value)}
-        onBlur={e => onName(cleanCourseCode(e.currentTarget.value))}
+        onBlur={e => {
+          const clean = cleanCourseCode(e.currentTarget.value)
+          if (e.currentTarget.value !== clean) {
+            onName(clean)
+          }
+        }}
         onKeyDown={e => {
           if (e.key === 'Enter') {
             e.currentTarget.parentElement?.nextElementSibling
@@ -81,9 +86,12 @@ export function CustomCourse ({
                         }
                         value={alt}
                         onChange={e => handleChange(e.currentTarget.value)}
-                        onBlur={e =>
-                          handleChange(cleanCourseCode(e.currentTarget.value))
-                        }
+                        onBlur={e => {
+                          const clean = cleanCourseCode(e.currentTarget.value)
+                          if (e.currentTarget.value !== clean) {
+                            handleChange(clean)
+                          }
+                        }}
                         onKeyDown={e => {
                           if (e.key === 'Enter') {
                             e.currentTarget.parentElement?.parentElement?.parentElement?.nextElementSibling

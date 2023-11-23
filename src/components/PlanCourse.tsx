@@ -85,12 +85,12 @@ export function PlanCourse ({
         list='courses'
         value={course.title}
         onChange={e => onCourse?.({ ...course, title: e.currentTarget.value })}
-        onBlur={e =>
-          onCourse?.({
-            ...course,
-            title: cleanCourseCode(e.currentTarget.value)
-          })
-        }
+        onBlur={e => {
+          const clean = cleanCourseCode(e.currentTarget.value)
+          if (e.currentTarget.value !== clean) {
+            onCourse?.({ ...course, title: clean })
+          }
+        }}
         placeholder={isNew ? 'Add a course' : 'Course name'}
         disabled={!onCourse}
         onKeyDown={e => {
@@ -178,16 +178,16 @@ export function PlanCourse ({
             onChange={e =>
               onCourse?.({ ...course, units: e.currentTarget.value })
             }
-            onBlur={e =>
-              onCourse?.({
-                ...course,
-                units: Number.isFinite(+e.currentTarget.value)
-                  ? +e.currentTarget.value < 0
-                    ? '0'
-                    : String(+e.currentTarget.value)
-                  : '4'
-              })
-            }
+            onBlur={e => {
+              const clean = Number.isFinite(+e.currentTarget.value)
+                ? +e.currentTarget.value < 0
+                  ? '0'
+                  : String(+e.currentTarget.value)
+                : '4'
+              if (e.currentTarget.value !== clean) {
+                onCourse?.({ ...course, units: clean })
+              }
+            }}
             disabled={!onCourse}
           />
           <span

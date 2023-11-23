@@ -315,9 +315,12 @@ export function PrereqSidebar ({
                 placeholder={isNew ? 'Type a course code here' : 'Course code'}
                 value={name}
                 onChange={e => handleChange(e.currentTarget.value)}
-                onBlur={e =>
-                  handleChange(cleanCourseCode(e.currentTarget.value))
-                }
+                onBlur={e => {
+                  const clean = cleanCourseCode(e.currentTarget.value)
+                  if (e.currentTarget.value !== clean) {
+                    handleChange(clean)
+                  }
+                }}
                 onKeyDown={e => {
                   if (e.key === 'Enter') {
                     e.currentTarget.parentElement?.nextElementSibling

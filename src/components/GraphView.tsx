@@ -118,7 +118,6 @@ export function GraphView ({ prereqs, plan }: GraphViewProps) {
           b.backwards.length - a.backwards.length
       )
     }
-    console.log(nodesByTerm)
     if (graph.current) {
       graph.current.setCurriculum(nodesByTerm)
     }

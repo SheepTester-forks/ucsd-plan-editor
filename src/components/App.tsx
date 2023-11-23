@@ -9,20 +9,23 @@ import { GraphView } from './GraphView.tsx'
 export type AppProps = {
   prereqs: Prereqs
   initPlan: AcademicPlan
+  initSatisfied: CourseCode[]
   mode: 'student' | 'advisor'
 }
 /**
  * The top-level component containing the plan metadata and editor and the
  * sidebar.
  */
-export function App ({ prereqs: initPrereqs, initPlan, mode }: AppProps) {
+export function App ({
+  prereqs: initPrereqs,
+  initPlan,
+  initSatisfied,
+  mode
+}: AppProps) {
   const [plan, setPlan] = useState(initPlan)
   const [customPrereqs, setCustomPrereqs] = useState<Prereqs>({})
-  const [assumedSatisfied, setAssumedSatisfied] = useState<CourseCode[]>([
-    'MATH 4C',
-    'AWP 3',
-    'AWP 4B'
-  ])
+  const [assumedSatisfied, setAssumedSatisfied] =
+    useState<CourseCode[]>(initSatisfied)
 
   const prereqs = { ...initPrereqs, ...customPrereqs }
 

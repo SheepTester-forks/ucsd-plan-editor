@@ -83,7 +83,11 @@ export function PrereqSidebar ({
 
   useEffect(() => {
     if (updateUrl) {
-      window.history.replaceState({}, '', '?' + toSearchParams(plan))
+      window.history.replaceState(
+        {},
+        '',
+        '?' + toSearchParams({ plan, transferCredit: assumedSatisfied })
+      )
     }
   }, [updateUrl, plan])
 
@@ -91,9 +95,12 @@ export function PrereqSidebar ({
     // Due to race conditions (`planName` may be out of date when mashing keys),
     // only set if there's already something saved there
     if (storage.getItem(SAVED_PLAN_PREFIX + planName) !== null) {
-      storage.setItem(SAVED_PLAN_PREFIX + planName, JSON.stringify(plan))
+      storage.setItem(
+        SAVED_PLAN_PREFIX + planName,
+        JSON.stringify({ ...plan, assumedSatisfied })
+      )
     }
-  }, [plan, planName])
+  }, [plan, planName, assumedSatisfied])
 
   useEffect(() => {
     const handleStorage = () => {
@@ -131,14 +138,17 @@ export function PrereqSidebar ({
                   type='radio'
                   name='plan'
                   checked={saving && name === planName}
-                  onClick={() => {
+                  onChange={() => {
                     if (!(saving && name === planName)) {
                       const json = storage.getItem(SAVED_PLAN_PREFIX + name)
                       if (json === null) {
                         return
                       }
-                      const plan = JSON.parse(json)
+                      const { assumedSatisfied, ...plan } = JSON.parse(json)
                       onPlan(plan)
+                      if (assumedSatisfied) {
+                        onAssumedSatisfied(assumedSatisfied)
+                      }
                       setOriginalPlan(plan)
                       setPlanName(name)
                       setOtherPlans(

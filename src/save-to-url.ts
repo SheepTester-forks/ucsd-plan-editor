@@ -1,7 +1,8 @@
 import { colleges } from './components/Metadata.tsx'
 import { AcademicPlan } from './types.ts'
+import { CourseCode } from './util/Prereqs.ts'
 
-export type UrlCourseJson = [
+type UrlCourseJson = [
   title: string,
   units: number,
   requirement: number,
@@ -9,7 +10,14 @@ export type UrlCourseJson = [
   forCredit?: number
 ]
 
-export function fromSearchParams (params: URLSearchParams): AcademicPlan {
+export type SerializationResult = {
+  plan: AcademicPlan
+  transferCredit?: CourseCode[]
+}
+
+export function fromSearchParams (
+  params: URLSearchParams
+): SerializationResult {
   const plan: AcademicPlan = {
     startYear: String(new Date().getFullYear()),
     years: [],
@@ -61,10 +69,17 @@ export function fromSearchParams (params: URLSearchParams): AcademicPlan {
       })
     }
   }
-  return plan
+  const transferCredit = params.get('transfer_credit')
+  return {
+    plan,
+    transferCredit: transferCredit ? transferCredit.split('\n') : undefined
+  }
 }
 
-export function toSearchParams (plan: AcademicPlan): URLSearchParams {
+export function toSearchParams ({
+  plan,
+  transferCredit
+}: SerializationResult): URLSearchParams {
   return new URLSearchParams({
     year: plan.startYear,
     department: plan.departmentCode,
@@ -88,6 +103,7 @@ export function toSearchParams (plan: AcademicPlan): URLSearchParams {
           )
         )
       )
-    )
+    ),
+    transfer_credit: transferCredit?.join('\n') ?? ''
   })
 }

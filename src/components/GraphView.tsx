@@ -3,6 +3,8 @@ import { AcademicPlan, Course } from '../types'
 import { useEffect, useRef } from 'react'
 import { Prereqs } from '../util/Prereqs'
 
+const styles: Record<string, string> = {}
+
 export type LinkedCourse = {
   course: Course
   backwards: LinkedCourse[]
@@ -19,7 +21,58 @@ export function GraphView ({ prereqs, plan }: GraphViewProps) {
   const graph = useRef<Graph<LinkedCourse> | null>(null)
 
   useEffect(() => {
-    graph.current = new Graph()
+    graph.current = new Graph({
+      termName: (_, i) =>
+        `${['Fall', 'Winter', 'Spring'][i % 3]} ${Math.floor(i / 3) + 1}`,
+      termSummary: term => {
+        return `Complexity: TODO\nUnits: ${term.reduce(
+          (acc, curr) => acc + (+curr.course.units || 0),
+          0
+        )}`
+      },
+      courseName: ({ course }) => {
+        return course.title
+      },
+      courseNode: ({ course }) => {
+        return course.units // TODO
+      },
+      styleLinkedNode: (node, {}, link) => {
+        if (link === null) {
+          node.classList.remove(
+            styles.selected,
+            styles.directPrereq,
+            styles.directBlocking,
+            styles.prereq,
+            styles.blocking
+          )
+        } else if (link.relation === 'backwards') {
+          node.classList.add(link.direct ? styles.directPrereq : styles.prereq)
+        } else {
+          node.classList.add(
+            link.relation === 'selected'
+              ? styles.selected
+              : link.relation === 'forwards'
+              ? link.direct
+                ? styles.directBlocking
+                : styles.blocking
+              : link.relation // never
+          )
+        }
+      },
+      tooltipTitle: ({ course }) => course.title,
+      tooltipContent: ({ course }) => {
+        return [
+          ['Units', course.units],
+          ['Complexity', 'TODO'],
+          ['Centrality', 'TODO'],
+          ['Blocking factor', 'TODO'],
+          ['Delay factor', 'TODO']
+        ]
+      },
+      tooltipRequisiteInfo: (element, source) => {
+        element.textContent = source.course.title
+      }
+    })
     ref.current?.append(graph.current.wrapper)
 
     return () => {

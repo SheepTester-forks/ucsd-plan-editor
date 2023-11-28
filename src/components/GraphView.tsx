@@ -107,16 +107,14 @@ export function GraphView ({ prereqs, plan }: GraphViewProps) {
     )
     for (const [i, term] of nodesByTerm.entries()) {
       for (const node of term) {
-        reqs: for (const req of prereqs[node.title] ?? []) {
-          for (const alt of req) {
-            const candidate = nodesByTerm
-              .slice(0, i)
-              .flat()
-              .find(node => node.title === alt && node.forCredit)
-            if (candidate) {
+        for (const req of prereqs[node.title] ?? []) {
+          // Link the earliest course satisfying the requirement. TODO: Is it
+          // better to select the latest?
+          for (const candidate of nodesByTerm.slice(0, i).flat()) {
+            if (node.forCredit && req.includes(candidate.title)) {
               node.backwards.push(candidate)
               candidate.forwards.push(node)
-              continue reqs
+              break
             }
           }
         }

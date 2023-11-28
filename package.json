@@ -24,7 +24,7 @@
     "esbuild": "^0.19.7"
   },
   "dependencies": {
-    "curricular-analytics-graph": "git+https://github.com/SheepTester-forks/curricular-analytics-graph.git#9260ca0a43664eae6d24ca1ac393962b1bea00e2",
+    "curricular-analytics-graph": "../curricular-analytics-graph/",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }

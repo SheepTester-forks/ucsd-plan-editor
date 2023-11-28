@@ -1,0 +1,12 @@
+.prereq {
+  --ball-color: #fee2e2;
+}
+.blocking {
+  --ball-color: #dbeafe;
+}
+.directPrereq {
+  --ball-color: #fca5a5;
+}
+.directBlocking {
+  --ball-color: #93c5fd;
+}

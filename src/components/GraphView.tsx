@@ -1,9 +1,8 @@
 import { Graph } from 'curricular-analytics-graph/src'
-import { AcademicPlan, Course } from '../types'
 import { useEffect, useRef } from 'react'
+import { AcademicPlan, Course } from '../types'
 import { Prereqs } from '../util/Prereqs'
-
-const styles: Record<string, string> = {}
+import styles from './GraphView.module.css'
 
 export type LinkedCourse = Course & {
   backwards: LinkedCourse[]
@@ -123,14 +122,14 @@ export function GraphView ({ prereqs, plan }: GraphViewProps) {
         }
       }
     }
-    for (const term of nodesByTerm) {
-      // Sort by outgoing nodes, then incoming
-      term.sort(
-        (a, b) =>
-          b.forwards.length - a.forwards.length ||
-          b.backwards.length - a.backwards.length
-      )
-    }
+    // for (const term of nodesByTerm) {
+    //   // Sort by outgoing nodes, then incoming
+    //   term.sort(
+    //     (a, b) =>
+    //       b.forwards.length - a.forwards.length ||
+    //       b.backwards.length - a.backwards.length
+    //   )
+    // }
     if (graph.current) {
       graph.current.setDegreePlan(nodesByTerm)
     }

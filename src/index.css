@@ -515,6 +515,7 @@ input[type='text'].start-year:focus-visible {
 .remove-zone {
   background-color: rgba(254, 230, 230, 0.5);
   position: fixed;
+  z-index: 1;
   bottom: 0;
   left: 0;
   right: 0;
@@ -577,4 +578,8 @@ input[type='text'].start-year:focus-visible {
 }
 .assumed-satisfied-input {
   width: 100%;
+}
+
+.graph {
+  padding: 10px;
 }

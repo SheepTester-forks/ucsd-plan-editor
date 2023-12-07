@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "A new plan editor for UCSD.",
   "main": "dist/index.js",
+  "type": "module",
   "scripts": {
-    "build": "esbuild --bundle --loader:.svg=file src/index.tsx --outdir=dist --supported:nesting=false --minify --sourcemap",
-    "clean": "rm -f dist/*.js dist/*.css dist/*.map",
+    "build": "esbuild --bundle --loader:.svg=file src/index.tsx --outdir=dist --supported:nesting=false --minify && node scripts/pack-html.js",
+    "clean": "rm -f dist/*.js dist/*.css dist/*.map dist/plan-editor.html",
     "dev": "esbuild --bundle --loader:.svg=file src/index.tsx --outdir=dist --servedir=dist --sourcemap"
   },
   "repository": {

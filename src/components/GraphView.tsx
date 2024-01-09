@@ -37,6 +37,13 @@ export function GraphView ({ prereqs, plan }: GraphViewProps) {
       courseNode: ({ complexity }) => {
         return String(complexity)
       },
+      styleNode: ({ element, course }) => {
+        if (course.requirement.major) {
+          element.classList.remove(styles.genEd)
+        } else {
+          element.classList.add(styles.genEd)
+        }
+      },
       styleLink: ({ element, redundant }) => {
         element.setAttributeNS(null, 'visibility', redundant ? 'hidden' : '')
       },

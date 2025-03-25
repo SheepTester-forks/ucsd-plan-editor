@@ -1,5 +1,20 @@
 # Academic plan creator (plan editor)
 
+## Development
+
+```sh
+# Install dependencies
+$ npm install
+
+# Build
+$ npm run build
+
+# Start development server
+$ npm run dev
+```
+
+## Project description
+
 _2023 January 26 to April 6. [App](https://educationalinnovation.ucsd.edu/_files/plan-editor.html)._
 
 Task: create a GUI for entering in plans, with the same format as [plans.ucsd.edu](https://plans.ucsd.edu/), that has autocompletion for course codes, a sidebar listing the prereqs for each course, and the ability to export the plan for Curricular Analytics.
@@ -33,13 +48,3 @@ Files:
 - reports/plan-editor/save-to-url.ts: handled saving and loading a plan and options from the URL.
 - reports/util/local-storage.ts: a getter for the `localStorage` object, since accessing it directly could throw errors in incognito mode in some browsers.
 - reports/plan-editor/README.md: details the component hierarchy listed above.
-
-## Development (plan diff, prereq tree, and plan editor)
-
-```sh
-# Build
-$ yarn build
-
-# Start development server
-$ yarn dev
-```

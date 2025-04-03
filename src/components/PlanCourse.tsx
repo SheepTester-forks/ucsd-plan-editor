@@ -56,8 +56,8 @@ export function PlanCourse ({
   const missingPrereqs =
     validCode && pastCourses
       ? prereqs[course.title].filter(
-          req => req.length > 0 && !req.some(alt => pastCourses.includes(alt))
-        )
+        req => req.length > 0 && !req.some(alt => pastCourses.includes(alt))
+      )
       : []
 
   const hasError = (duplicateCourse && validCode) || missingPrereqs.length > 0
@@ -71,16 +71,18 @@ export function PlanCourse ({
       style={
         dragged
           ? {
-              left: `${dragged.x}px`,
-              top: `${dragged.y}px`,
-              width: `${dragged.width}px`
-            }
+            left: `${dragged.x}px`,
+            top: `${dragged.y}px`,
+            width: `${dragged.width}px`
+          }
           : {}
       }
       ref={ref}
     >
       <input
-        className='course-field course-title'
+        className={`course-field course-title ${
+          validCode ? 'valid-course-code' : ''
+        }`}
         type='text'
         list='courses'
         value={course.title}
@@ -119,8 +121,8 @@ export function PlanCourse ({
                     ? 'overlap'
                     : 'major-req'
                   : course.requirement.college
-                  ? 'college-req'
-                  : ''
+                    ? 'college-req'
+                    : ''
               }`}
               title={[
                 'Course options',
@@ -129,8 +131,8 @@ export function PlanCourse ({
                     ? ': overlaps GE and major requirements'
                     : ': major requirement'
                   : course.requirement.college
-                  ? ': GE requirement'
-                  : '',
+                    ? ': GE requirement'
+                    : '',
                 prereqs?.[course.title] ? ', valid course code' : '',
                 course.forCredit ? '' : ', no credit received'
               ].join('')}
@@ -141,8 +143,8 @@ export function PlanCourse ({
                   ? '⇄'
                   : 'M'
                 : course.requirement.college
-                ? 'C'
-                : '⚙'}
+                  ? 'C'
+                  : '⚙'}
               {validCode && <span className='valid-course-icon'>✓</span>}
               {!course.forCredit && (
                 <span className='failed-course-icon'>F</span>

@@ -12,7 +12,7 @@ noscript {
   color: red;
 }
 button,
-input[type='text'],
+[type='text'],
 select {
   border: none;
   padding: 0;
@@ -31,11 +31,11 @@ button:not(:disabled) {
   font-weight: normal;
   text-transform: none;
 }
-input[type='text']:focus,
+[type='text']:focus,
 select:focus {
   outline: none;
 }
-input[type='text']:focus-visible,
+[type='text']:focus-visible,
 select:focus-visible {
   box-shadow: 0 0 0 3px rgba(102, 175, 233, 0.3);
 }
@@ -230,13 +230,13 @@ input[type='checkbox'] {
 .metadata-value:focus {
   border: 1px solid#66afe9;
 }
-input[type='text'].metadata-value {
+[type='text'].metadata-value {
   width: 70px;
 }
 .lengthy {
   flex: auto;
 }
-.lengthy input[type='text'].metadata-value {
+.lengthy [type='text'].metadata-value {
   width: unset;
 }
 .plan-units {
@@ -279,7 +279,7 @@ input[type='text'].metadata-value {
   background-color: #d2322d;
   border-color: #ac2925;
 }
-input[type='text'].start-year {
+[type='text'].start-year {
   width: 5.5ch;
   text-align: right;
   color: black;
@@ -289,7 +289,7 @@ input[type='text'].start-year {
   padding-right: 5px;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08);
 }
-input[type='text'].start-year:focus-visible {
+[type='text'].start-year:focus-visible {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
 }
 .total-units {
@@ -338,6 +338,9 @@ input[type='text'].start-year:focus-visible {
   padding: 0 10px;
   flex: auto;
   width: 0;
+}
+.valid-course-code {
+  font-weight: bold;
 }
 .course-units {
   width: 3ch;

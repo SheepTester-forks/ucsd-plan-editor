@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AcademicPlan } from '../types.ts'
-import { CourseCode, Prereqs } from '../util/Prereqs.ts'
+import { CourseCode, Offering, Prereqs } from '../util/Prereqs.ts'
 import { Editor } from './Editor.tsx'
 import { Metadata } from './Metadata.tsx'
 import { PrereqSidebar } from './PrereqSidebar.tsx'
@@ -8,6 +8,7 @@ import { GraphView } from './GraphView.tsx'
 
 export type AppProps = {
   prereqs: Prereqs
+  offerings: Record<string, Offering>
   initPlan: AcademicPlan
   initSatisfied: CourseCode[]
   mode: 'student' | 'advisor'
@@ -18,6 +19,7 @@ export type AppProps = {
  */
 export function App ({
   prereqs: initPrereqs,
+  offerings,
   initPlan,
   initSatisfied,
   mode
@@ -55,6 +57,7 @@ export function App ({
         </div>
         <Editor
           prereqs={prereqs}
+          offerings={offerings}
           assumedSatisfied={assumedSatisfied}
           plan={plan}
           onPlan={setPlan}

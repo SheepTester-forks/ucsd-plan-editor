@@ -1,13 +1,14 @@
 import React, { useRef, useState } from 'react'
 import { DragContext, DragState } from '../drag-drop.ts'
 import { AcademicPlan } from '../types.ts'
-import { CourseCode, Prereqs } from '../util/Prereqs.ts'
+import { CourseCode, Offering, Prereqs } from '../util/Prereqs.ts'
 import { PlanCourse } from './PlanCourse.tsx'
 import { RemoveZone } from './RemoveZone.tsx'
 import { Year } from './Year.tsx'
 
 export type EditorProps = {
   prereqs: Prereqs
+  offerings: Record<string, Offering>
   assumedSatisfied: CourseCode[]
   plan: AcademicPlan
   onPlan: (plan: AcademicPlan) => void
@@ -19,6 +20,7 @@ export type EditorProps = {
  */
 export function Editor ({
   prereqs,
+  offerings,
   assumedSatisfied,
   plan,
   onPlan
@@ -37,21 +39,21 @@ export function Editor ({
         onPlan(
           dropLoc
             ? {
-                ...plan,
-                years: plan.years.map((year, i) =>
-                  i === dropLoc.yearIndex
-                    ? year.map((term, j) =>
-                        j === dropLoc.termIndex
-                          ? [
-                              ...term.slice(0, dropLoc.courseIndex),
-                              dragState.course,
-                              ...term.slice(dropLoc.courseIndex)
-                            ]
-                          : term
-                      )
-                    : year
-                )
-              }
+              ...plan,
+              years: plan.years.map((year, i) =>
+                i === dropLoc.yearIndex
+                  ? year.map((term, j) =>
+                    j === dropLoc.termIndex
+                      ? [
+                        ...term.slice(0, dropLoc.courseIndex),
+                        dragState.course,
+                        ...term.slice(dropLoc.courseIndex)
+                      ]
+                      : term
+                  )
+                  : year
+              )
+            }
             : dragState.originalPlan
         )
       }
@@ -81,6 +83,7 @@ export function Editor ({
         {plan.years.map((year, yearIndex) => (
           <Year
             prereqs={prereqs}
+            offerings={offerings}
             planStartYear={plan.startYear}
             index={yearIndex}
             plan={year}
@@ -121,10 +124,10 @@ export function Editor ({
                   years: plan.years.map((year, i) =>
                     i === yearIndex
                       ? year.map((term, j) =>
-                          j === termIndex
-                            ? term.filter((_, k) => k !== courseIndex)
-                            : term
-                        )
+                        j === termIndex
+                          ? term.filter((_, k) => k !== courseIndex)
+                          : term
+                      )
                       : year
                   )
                 })

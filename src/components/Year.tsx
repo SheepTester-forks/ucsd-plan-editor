@@ -1,11 +1,12 @@
 import React from 'react'
 import { YearPlan } from '../types.ts'
-import { CourseCode, Prereqs } from '../util/Prereqs.ts'
+import { CourseCode, Offering, Prereqs } from '../util/Prereqs.ts'
 import { Term } from './Term.tsx'
 
-const termNames = ['Fall', 'Winter', 'Spring']
+export const termNames = ['Fall', 'Winter', 'Spring', 'Summer']
 export type YearProps = {
   prereqs: Prereqs
+  offerings: Record<string, Offering>
   planStartYear: string
   index: number
   plan: YearPlan
@@ -25,6 +26,7 @@ export type YearProps = {
  */
 export function Year ({
   prereqs,
+  offerings,
   planStartYear,
   index,
   plan,
@@ -84,6 +86,8 @@ export function Year ({
         {plan.map((term, i) => (
           <Term
             prereqs={prereqs}
+            offerings={offerings}
+            termIndex={i}
             name={termNames[i]}
             plan={term}
             onPlan={newPlan =>

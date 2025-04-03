@@ -1,5 +1,11 @@
 export type CourseCode = string
 export type Prereqs = Record<CourseCode, CourseCode[][]>
+export type Offering = [
+  fall: boolean,
+  winter: boolean,
+  spring: boolean,
+  summer: boolean
+]
 
 export function cleanCourseCode (userCourseCode: string): CourseCode | string {
   const match = userCourseCode

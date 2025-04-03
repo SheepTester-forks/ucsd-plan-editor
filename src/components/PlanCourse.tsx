@@ -1,10 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { CourseCode, Prereqs, cleanCourseCode } from '../util/Prereqs.ts'
+import {
+  CourseCode,
+  Offering,
+  Prereqs,
+  cleanCourseCode
+} from '../util/Prereqs.ts'
 import { Course } from '../types.ts'
 import { CourseOptions } from './CourseOptions.tsx'
 
 export type PlanCourseProps = {
   prereqs?: Prereqs
+  offerings?: Record<string, Offering>
+  termIndex?: number
   course: Course
   onCourse?: (course: Course) => void
   onRemove?: () => void
@@ -23,6 +30,8 @@ export type PlanCourseProps = {
  */
 export function PlanCourse ({
   prereqs,
+  offerings,
+  termIndex,
   course,
   onCourse,
   onRemove,
@@ -59,9 +68,13 @@ export function PlanCourse ({
         req => req.length > 0 && !req.some(alt => pastCourses.includes(alt))
       )
       : []
+  const courseOfferings = offerings?.[course.title.replace(' ', '')]
 
   const hasError = (duplicateCourse && validCode) || missingPrereqs.length > 0
-  const hasWarning = (duplicateCourse && !validCode) || duplicateCredit
+  const hasWarning =
+    (duplicateCourse && !validCode) ||
+    duplicateCredit ||
+    (courseOfferings && !courseOfferings[termIndex ?? 0])
 
   return (
     <li
@@ -168,6 +181,8 @@ export function PlanCourse ({
               duplicateCourse={duplicateCourse}
               duplicateCredit={duplicateCredit}
               missingPrereqs={missingPrereqs}
+              offerings={courseOfferings}
+              termIndex={termIndex ?? 0}
               visible={showOptions}
             />
           )}

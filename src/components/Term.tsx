@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useMemo, useRef } from 'react'
 import { DragContext } from '../drag-drop.ts'
 import { Course, TermPlan } from '../types.ts'
-import { CourseCode, Prereqs } from '../util/Prereqs.ts'
+import { CourseCode, Offering, Prereqs } from '../util/Prereqs.ts'
 import { PlanCourse } from './PlanCourse.tsx'
 
 const Placeholder = () => <li className='placeholder-course'></li>
@@ -15,6 +15,8 @@ const emptyCourse: Omit<Course, 'id'> = {
 }
 export type TermProps = {
   prereqs: Prereqs
+  offerings: Record<string, Offering>
+  termIndex: number
   name: string
   plan: TermPlan
   onPlan: (plan: TermPlan) => void
@@ -28,6 +30,8 @@ export type TermProps = {
  */
 export function Term ({
   prereqs,
+  offerings,
+  termIndex,
   name,
   plan,
   onPlan,
@@ -98,14 +102,16 @@ export function Term ({
             {!(placeholderIndex !== null && i === plan.length) && (
               <PlanCourse
                 prereqs={prereqs}
+                offerings={offerings}
+                termIndex={termIndex}
                 course={course}
                 onCourse={newCourse =>
                   onPlan(
                     i === plan.length
                       ? [...plan, newCourse]
                       : plan.map((course, index) =>
-                          index === i ? newCourse : course
-                        )
+                        index === i ? newCourse : course
+                      )
                   )
                 }
                 onRemove={() => onPlan(plan.filter((_, j) => j !== i))}
